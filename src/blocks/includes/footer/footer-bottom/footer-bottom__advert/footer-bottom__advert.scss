@@ -1,0 +1,29 @@
+.advert {
+  display: flex;
+  align-items: center;
+  padding-left: rem(17);
+  @media screen and (max-width: 860px) {
+    justify-content: center;
+  }
+  &__desc {
+    color: #a0a9b2;
+    font-family: $mainFont;
+    font-size: rem(12);
+    font-weight: 400;
+  }
+  &__line {
+    height: 90%;
+    margin: 0 rem(17);
+    opacity: 0.1;
+    background-color: white;
+  }
+  &__link {
+    color: white;
+    font-family: $mainFont;
+    font-size: rem(14);
+    font-weight: 400;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

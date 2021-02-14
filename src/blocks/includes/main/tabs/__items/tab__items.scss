@@ -1,0 +1,35 @@
+.tab {
+  &__items {
+    padding-left: rem(36);
+    @media screen and (max-width: 384px) {
+      padding-left: rem(52);
+    }
+  }
+
+  &__triggers {
+    background-color: #efefef;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: rem(282);
+    border: 3px solid #efefef;
+    @media screen and (max-width: 384px) {
+      width: rem(200);
+    }
+  }
+
+  &__trig {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 40px;
+    color: dimgrey;
+
+    &.active {
+      background-color: #ff8900;
+      color: white;
+    }
+  }
+}

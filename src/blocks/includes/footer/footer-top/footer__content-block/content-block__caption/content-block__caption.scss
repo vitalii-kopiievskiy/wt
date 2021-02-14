@@ -1,0 +1,26 @@
+.content-block {
+  &__slogan {
+    padding-top: rem(23);
+    color: #cbcbcb;
+    font-family: $mainFont;
+    @include advFont(20, 14);
+    font-weight: 700;
+    line-height: 40px;
+    text-transform: uppercase;
+    @media screen and (max-width: 1024px) {
+      text-align: center;
+    }
+  }
+  &__text {
+    color: white;
+    font-family: $mainFont;
+    @include advFont(26, 16);
+    font-weight: 900;
+    line-height: 25px;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 1024px) {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+mixin  products-add (compareId, wishId)
+    ul.products-add
+        li.products-add__item
+            .products-add__btn.products-compare(data-id= compareId)
+                img.products-add__icon(src="./assets/img/products/compare_icon.svg", alt="compare icon")
+                span.products-add__text Сравнить товар
+        li.products-add__item
+            .products-add__btn.products-wishlist(data-id= wishId)
+                img.products-add__icon(src="./assets/img/products/wishlist_icon.svg", alt="wishlist icon")
+                span.products-add__text В избранное

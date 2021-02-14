@@ -1,0 +1,88 @@
+@import "./__modal/subscribe-form__modal.scss";
+
+.fas.fa-times {
+  display: none;
+}
+.subscribe-form {
+  padding-top: rem(19);
+  display: flex;
+  position: relative;
+
+  @media screen and (max-width: 1024px) {
+    justify-content: center;
+    padding: rem(19) rem(150);
+  }
+  @media screen and (max-width: 800px) {
+    padding: rem(19) rem(50);
+  }
+  @media screen and (max-width: 620px) {
+    padding: rem(19) 0;
+  }
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
+
+  &__input {
+    padding: rem(5) rem(30);
+    color: #9c9c9c;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 40px;
+    width: 100%;
+
+    &.invalid ~ i {
+      display: block;
+      position: absolute;
+      color: red;
+      top: 50%;
+      right: rem(187);
+      @media screen and (max-width: 1024px) {
+        top: 40%;
+        right: rem(333);
+      }
+      @media screen and (max-width: 800px) {
+        top: 40%;
+        right: rem(237);
+      }
+      @media screen and (max-width: 620px) {
+        top: 40%;
+        right: rem(185);
+      }
+      @media screen and (max-width: 479px) {
+        top: 25%;
+        right: rem(16);
+      }
+    }
+
+    @include placeholder {
+      color: #9c9c9c;
+      font-family: $mainFont;
+      font-size: rem(14px);
+      font-weight: 400;
+      line-height: rem(40px);
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      @media screen and (max-width: 480px) {
+        text-align: center;
+      }
+    }
+
+    &:focus {
+      @include placeholder {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__btn {
+    padding: 0 rem(26);
+    color: white;
+    font-size: rem(16);
+    font-weight: 700;
+    line-height: 40px;
+    text-transform: uppercase;
+    @media screen and (max-width: 480px) {
+      padding: rem(5) rem(26);
+    }
+  }
+}

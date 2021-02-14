@@ -1,0 +1,5 @@
+form(action='#', method="get").subscribe-form#subscribeForm
+    input#subscribeEmail.subscribe-form__input(type='text' name='subscribe' placeholder='Укажите свой email для подписки')
+    i.fas.fa-times.subscribe-form__icon
+    button#confirmSubscribeBtn.btn.subscribe-form__btn(type='text') Подписаться
+    include __modal/subscribe-form__modal

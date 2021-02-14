@@ -1,0 +1,12 @@
+@import "menu/menu.scss";
+@import "tabs/tabs.scss";
+
+.main {
+  display: grid;
+  grid-template-columns: 24% 3fr;
+  grid-column-gap: 20px;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-row-gap: 20px;
+  }
+}

@@ -1,0 +1,13 @@
+form(action="", method="get").search-form
+    input(type='text' name='search' placeholder='Поиск по сайту').search-form__input
+    .search__selects
+        select(aria-labelledby='jobLabel' name='select').search__select_native.js-selectNative
+            option(value='sel' disabled='' selected='') Все категории
+            each val in ['1','2','3','4','5']
+                option(value='link_' + val)= 'Ссылка ' + val
+        .search__select_custom.js-selectCustom(aria-hidden='true')
+            .search__trigger Все категории
+            .search__options
+                each val in ['1','2','3','4','5']
+                    .search__option(data-value='link_' + val)= 'Ссылка ' + val
+    button(type='submit').btn.search-form__btn Поиск
