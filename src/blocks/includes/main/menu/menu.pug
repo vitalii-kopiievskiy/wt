@@ -1,0 +1,10 @@
+nav#menu
+    .menu
+        .menu__headline
+            img(src="./assets/img/menu/burger.svg", alt="menu icon").menu__icon
+            span.menu__title Меню
+        ul.menu__list
+            each item in ['1','2','3','4','5','6','7']
+                li.menu__item
+                    a(href="#").menu__link.prevent-link= 'Ссылка ' + item
+                        i.fas.fa-chevron-right.menu__label

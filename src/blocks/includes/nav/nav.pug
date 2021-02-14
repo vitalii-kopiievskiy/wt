@@ -1,0 +1,14 @@
+nav#nav
+    .container
+        .nav
+            include burger/burger
+            ul.nav__list#navList
+                each txt, i in ['Главная', 'О компании', 'Ссылка 1', 'Ссылка 2', 'Ссылка 3']
+                    if i == 0
+                        li.nav__item
+                            a(href="#").nav__link.isActive.prevent-link= txt
+                    else
+                        li.nav__item
+                            a(href="#").nav__link.prevent-link= txt
+            include __button/nav__button.pug
+        include -modal/nav-modal

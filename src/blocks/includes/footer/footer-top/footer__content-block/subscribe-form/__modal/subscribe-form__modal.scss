@@ -1,0 +1,75 @@
+.subscribe-form {
+  &__modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+
+    &-content {
+      position: relative;
+      background-color: white;
+      padding: rem(20) rem(40);
+      margin: rem(200px) auto 0;
+      width: rem(400px);
+      @media screen and (max-width: 480px) {
+        width: 100%;
+        padding: rem(20);
+      }
+    }
+    &-desc {
+      display: block;
+      color: #3b3b3b;
+      font-weight: 700;
+      line-height: rem(40);
+    }
+  }
+  &__button {
+    display: block;
+    margin: 0 auto;
+    width: 75%;
+    padding: rem(10);
+  }
+  &__btn_close {
+    position: absolute;
+    right: rem(10);
+    top: rem(10);
+    width: rem(40);
+    height: rem(40);
+
+    @media screen and (max-width: 1024px) {
+      right: rem(12);
+      top: rem(12);
+    }
+
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: rem(15);
+      content: " ";
+      height: rem(40);
+      width: rem(2);
+      background-color: #dbdbdb;
+      transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover:before,
+    &:hover:after {
+      background-color: rgb(219, 53, 61);
+      transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+  }
+}

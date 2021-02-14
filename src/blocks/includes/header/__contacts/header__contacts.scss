@@ -1,0 +1,53 @@
+.contacts {
+  display: flex;
+  flex-direction: row;
+  background-color: whitesmoke;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__phone {
+    &:nth-child(2) {
+      padding: 0 rem(32) 0 rem(22);
+      @media screen and (max-width: 800px) {
+        padding: 0;
+      }
+    }
+    @media screen and (max-width: 800px) {
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+  &__link {
+    display: block;
+    padding: rem(13) rem(8);
+    color: #151515;
+    font-weight: 700;
+    font-size: rem(16);
+    line-height: 20px;
+    font-style: italic;
+
+    &:hover {
+      color: rgb(114, 112, 112);
+    }
+  }
+
+  &__btn {
+    letter-spacing: -1.2px;
+    margin-left: rem(4);
+    font-size: rem(12);
+    padding: rem(14) rem(44) rem(14) rem(31);
+    font-weight: 400;
+    text-transform: uppercase;
+    @media screen and (max-width: 800px) {
+      margin-left: 0px;
+      letter-spacing: 0;
+    }
+  }
+}
+
+.btn__icon_small {
+  margin-right: rem(-4);
+}

@@ -1,0 +1,47 @@
+@import "__items/form__items";
+@import "__register/form__register";
+@import "__restore/form__restore";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: rem(25) rem(42);
+  order: 1;
+
+  @media screen and (max-width: 787px) {
+    order: 3;
+  }
+
+  &__label,
+  &__input,
+  &__link,
+  &__btn {
+    font-size: rem(14);
+    font-weight: 700;
+    line-height: 40px;
+  }
+
+  &__title,
+  &__label {
+    color: #3b3b3b;
+  }
+
+  &__btn {
+    font-size: rem(14);
+    line-height: 40px;
+    margin-top: rem(16);
+    width: rem(210);
+    height: rem(50);
+    background-color: #afb9c6;
+    color: white;
+    cursor: pointer;
+
+    &.active {
+      background-color: #ff8900;
+
+      &:hover {
+        background-color: #f8a547;
+      }
+    }
+  }
+}

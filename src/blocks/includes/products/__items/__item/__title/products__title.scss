@@ -1,0 +1,44 @@
+.products {
+  &__title {
+    padding: 2px 0;
+    color: #3b3b3b;
+    font-size: rem(17);
+    font-weight: 400;
+    line-height: 26px;
+    text-decoration: underline;
+    @media screen and (max-width: 1359px) {
+      font-size: rem(15);
+    }
+    @media screen and (max-width: 1240px) {
+      font-size: rem(17);
+    }
+    @media screen and (max-width: 720px) {
+      @include advFont(17, 12);
+    }
+    @media screen and (max-width: 640px) {
+      font-size: rem(17);
+    }
+    @media screen and (max-width: 360px) {
+      font-size: rem(14);
+    }
+  }
+  &__subtitle {
+    color: #3b3b3b;
+    font-size: rem(17);
+    font-weight: 400;
+    line-height: 26px;
+    text-decoration: underline;
+    @media screen and (max-width: 1359px) {
+      font-size: rem(15);
+    }
+    @media screen and (max-width: 1240px) {
+      font-size: rem(17);
+    }
+    @media screen and (max-width: 720px) {
+      @include advFont(17, 12);
+    }
+    @media screen and (max-width: 640px) {
+      font-size: rem(15);
+    }
+  }
+}

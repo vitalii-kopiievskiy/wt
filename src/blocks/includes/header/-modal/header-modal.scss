@@ -1,0 +1,154 @@
+.header-modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: auto;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: rem(24) rem(38);
+    position: relative;
+    background-color: white;
+    margin: rem(306) auto;
+    width: rem(378);
+
+    @media screen and (max-width: 520px) {
+      width: 100%;
+      padding: rem(24);
+      margin: rem(67) auto;
+    }
+  }
+
+  &__title {
+    font-family: $mainFont;
+    color: #3b3b3b;
+    font-size: rem(24);
+    font-weight: 700;
+    line-height: 40px;
+  }
+
+  &__form {
+    padding-top: rem(14);
+  }
+
+  &__label {
+    font-weight: 500;
+    display: block;
+    @media screen and (max-width: 520px) {
+      text-align: center;
+    }
+  }
+
+  &__input {
+    display: block;
+    background-color: white;
+    border: 1px solid #d2d2d2;
+    color: #9c9c9c;
+    padding-left: rem(10);
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 40px;
+    height: rem(40);
+    width: rem(299);
+
+    @media screen and (max-width: 520px) {
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 425px) {
+      width: rem(240);
+    }
+    @include placeholder {
+      color: #9c9c9c;
+      font-family: $mainFont;
+      font-size: rem(16);
+      font-weight: 400;
+      line-height: 40px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus {
+      @include placeholder {
+        opacity: 0;
+      }
+    }
+    & + .error {
+      @media screen and (max-width: 520px) {
+        left: 20%;
+      }
+      @media screen and (max-width: 360px) {
+        left: 13%;
+      }
+    }
+  }
+
+  &__btn {
+    display: block;
+    margin: 30px auto;
+    color: white;
+    font-family: $mainFont;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 40px;
+    text-transform: none;
+    padding: rem(4) rem(48);
+    background-color: #afb9c6;
+
+    &:hover {
+      background-color: #afb9c6;
+    }
+
+    &.active {
+      background-color: #ff8900;
+
+      &:hover {
+        background-color: #f8a547;
+      }
+    }
+  }
+
+  &__btn_close {
+    position: absolute;
+    right: rem(-54);
+    top: rem(-50);
+    width: rem(40);
+    height: rem(40);
+
+    @media screen and (max-width: 1024px) {
+      right: rem(12);
+      top: rem(12);
+    }
+
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: rem(15);
+      content: " ";
+      height: 40px;
+      width: rem(2);
+      background-color: #dbdbdb;
+      transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover:before,
+    &:hover:after {
+      background-color: rgb(219, 53, 61);
+      transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+  }
+}

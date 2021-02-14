@@ -1,0 +1,23 @@
+.tab__button_apply {
+  background-image: linear-gradient(to right, #ff8500 0%, #ffae00 100%);
+  color: white;
+  font-size: rem(14);
+  font-weight: 700;
+  line-height: 40px;
+  text-transform: uppercase;
+  justify-self: end;
+  padding: 0 rem(32);
+  @media screen and (max-width: 720px) {
+    justify-self: stretch;
+  }
+  @media screen and (max-width: 1152px) {
+    font-size: rem(13);
+  }
+  @media screen and (max-width: 1024px) {
+    font-size: rem(14);
+  }
+
+  &:hover {
+    background-image: linear-gradient(to right, #ff8500 30%, #ffae00 70%);
+  }
+}

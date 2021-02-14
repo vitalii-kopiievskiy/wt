@@ -1,0 +1,88 @@
+.tab {
+  &__links {
+    background-color: #606a76;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 rem(55) 0 rem(21);
+    @media screen and (max-width: 1300px) {
+      align-items: flex-end;
+      padding: 0 rem(21) 0 rem(21);
+    }
+    @media screen and (max-width: 1024px) {
+      align-items: center;
+      padding: 0 rem(55) 0 rem(21);
+    }
+    @media screen and (max-width: 384px) {
+      padding: 0 rem(12);
+    }
+  }
+
+  &__link {
+    display: block;
+    color: #a0a6ad;
+    font-size: rem(18);
+    font-weight: 700;
+    line-height: 40px;
+    padding: rem(18) rem(24) rem(16);
+    border-bottom: 2px solid transparent;
+    transition: none;
+
+    @media screen and (max-width: 1300px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      @include advFont(18, 8);
+    }
+    @media screen and (max-width: 1024px) {
+      display: block;
+      font-size: rem(18);
+    }
+    @media screen and (max-width: 561px) {
+      font-size: 0;
+      padding: rem(18) rem(18) 0;
+      line-height: 20px;
+    }
+    @media screen and (max-width: 383px) {
+      padding: rem(18) rem(10) 0;
+    }
+
+    &:hover {
+      color: white;
+      transition: all 0.2s ease-in-out;
+
+      & svg .tab__el {
+        fill: white;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    &_active {
+      color: white;
+      border-bottom: 2px solid #ffc925;
+
+      & svg .tab__el {
+        fill: #ffc925;
+      }
+      &:hover {
+        & svg .tab__el {
+          fill: #ffc925;
+        }
+      }
+    }
+  }
+
+  &__img {
+    margin-right: rem(14);
+    @media screen and (max-width: 1300px) {
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 1024px) {
+      margin-right: rem(14);
+    }
+  }
+}
+
+.tab__el {
+  fill: #a0a6ad;
+}

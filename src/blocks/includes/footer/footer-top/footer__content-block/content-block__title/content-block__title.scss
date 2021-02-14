@@ -1,0 +1,28 @@
+.content-block__title {
+  position: relative;
+  color: #cbcbcb;
+  font-family: $mainFont;
+  @include advFont(20, 14);
+  font-weight: 500;
+  line-height: 36px;
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid rgba(219, 219, 219, 0.15);
+  @media screen and (max-width: 480px) {
+    padding: 0 rem(15);
+    border-bottom: none;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -1px;
+    height: 1px;
+    width: 10%;
+    background-color: #ff8500;
+    @media screen and (max-width: 480px) {
+      width: 50%;
+    }
+  }
+}

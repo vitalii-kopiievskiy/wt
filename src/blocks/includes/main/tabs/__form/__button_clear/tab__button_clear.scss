@@ -1,0 +1,25 @@
+.tab {
+  &__button_clear {
+    display: flex;
+    align-items: center;
+    background-color: #ff4800;
+    color: white;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 40px;
+    justify-self: start;
+    padding: 0 rem(37);
+    @media screen and (max-width: 720px) {
+      justify-self: stretch;
+      justify-content: center;
+    }
+
+    &:hover {
+      background-color: #f75b1d;
+    }
+  }
+  &-btn__icon {
+    font-size: rem(24);
+    padding-right: rem(10);
+  }
+}

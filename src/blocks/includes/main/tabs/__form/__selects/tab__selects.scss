@@ -1,0 +1,127 @@
+@import "__price/tab__price";
+
+.tab {
+  &__selects {
+    position: relative;
+  }
+
+  &__select {
+    &_native,
+    &_custom {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    &_native {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='darkorange' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+      background-repeat: no-repeat;
+      background-position-x: 92%;
+      background-position-y: 50%;
+      color: #9c9c9c;
+      font-family: $mainFont;
+      font-size: rem(14);
+      font-weight: 400;
+      line-height: rem(40);
+      background-color: white;
+      padding-left: rem(15);
+    }
+
+    &_custom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 1px;
+        height: 1px;
+        width: 100%;
+        background-color: #696969;
+      }
+
+      &.isActive .tab__options {
+        display: block;
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    &__select_custom {
+      display: block;
+    }
+
+    &__select_native:focus + &__select_custom {
+      display: none;
+    }
+  }
+
+  &__trigger {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    color: #9c9c9c;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: rem(40);
+    padding-left: rem(15);
+    cursor: pointer;
+
+    &:after {
+      content: "▾";
+      position: absolute;
+      top: 0;
+      right: 26px;
+      font-size: rem(14);
+      color: #ff8500;
+      width: 6px;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border: 1px solid #d1d0d0;
+    border-top: none;
+    background-color: white;
+    z-index: 1;
+    display: none;
+  }
+
+  &__option {
+    position: relative;
+    color: #616161;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: rem(40);
+    padding-left: rem(16);
+
+    &.isHover {
+      background-color: #ff8900; // contrast AA
+      color: white;
+      cursor: pointer;
+    }
+
+    &:not(:last-of-type)::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid #d3d3d3;
+    }
+
+    &.isActive::before {
+      content: "✓";
+      position: absolute;
+      right: rem(16);
+    }
+  }
+}

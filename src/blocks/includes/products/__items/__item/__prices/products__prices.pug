@@ -1,0 +1,6 @@
+mixin products-prices (activePrice, disablePrice)
+    .products__prices
+        p.products__price.products__price--active= activePrice
+            span.products__price--desc  грн.
+        if(disablePrice)
+            p.products__price.products__price--disable= disablePrice
