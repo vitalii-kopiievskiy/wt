@@ -1,9 +1,0 @@
-mixin products-description (feedback, num, check)
-  .products__description.desc
-      .desc__rating.rat
-        each val, index in check
-          input.rat__input(type='radio' name=`rating_${num}` id= `r${num}_${index}` checked= val)
-          label.rat__label(for=`r${num}_${index}`)
-            i.fas.fa-star
-      a(href="#").desc__feedback.prevent-link= feedback
-      span.desc__exist В наличии:24шт
