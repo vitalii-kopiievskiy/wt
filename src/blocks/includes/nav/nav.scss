@@ -38,12 +38,12 @@
     text-transform: uppercase;
     color: #c2c2c2;
 
-    &.isActive {
+    &_active {
       border-bottom: 2px solid #ffc925;
       color: white;
     }
     &:hover,
-    &.isActive {
+    &_active {
       color: white;
     }
   }
