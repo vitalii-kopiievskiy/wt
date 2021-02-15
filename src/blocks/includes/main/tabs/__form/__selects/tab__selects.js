@@ -1,5 +1,5 @@
-let nativeSelect_1 = document.getElementsByClassName("js-tabNative_1")[0];
-let customSelect_1 = document.getElementsByClassName("js-tabCustom_1")[0];
+let nativeSelect_1 = document.getElementsByClassName("tab__select-native1")[0];
+let customSelect_1 = document.getElementsByClassName("tab__select-custom1")[0];
 
 let tabTrigger_1 = customSelect_1.children[0];
 let customSelectOpts_1 = customSelect_1.children[1];
@@ -150,8 +150,8 @@ customOptsList_1.forEach(function(elOption, index) {
 
 // -----------------------------------------------------------------
 
-let nativeSelect_2 = document.getElementsByClassName("js-tabNative_2")[0];
-let customSelect_2 = document.getElementsByClassName("js-tabCustom_2")[0];
+let nativeSelect_2 = document.getElementsByClassName("tab__select-native2")[0];
+let customSelect_2 = document.getElementsByClassName("tab__select-custom2")[0];
 
 let tabTrigger_2 = customSelect_2.children[0];
 let customSelectOpts_2 = customSelect_2.children[1];
@@ -302,8 +302,8 @@ customOptsList_2.forEach(function(elOption, index) {
 
 // ---------------------------------------------------
 
-let nativeSelect_3 = document.getElementsByClassName("js-tabNative_3")[0];
-let customSelect_3 = document.getElementsByClassName("js-tabCustom_3")[0];
+let nativeSelect_3 = document.getElementsByClassName("tab__select-native3")[0];
+let customSelect_3 = document.getElementsByClassName("tab__select-custom3")[0];
 
 let tabTrigger_3 = customSelect_3.children[0];
 let customSelectOpts_3 = customSelect_3.children[1];
@@ -454,8 +454,8 @@ customOptsList_3.forEach(function(elOption, index) {
 
 // ------------------------------------------------
 
-let nativeSelect_4 = document.getElementsByClassName("js-tabNative_4")[0];
-let customSelect_4 = document.getElementsByClassName("js-tabCustom_4")[0];
+let nativeSelect_4 = document.getElementsByClassName("tab__select-native4")[0];
+let customSelect_4 = document.getElementsByClassName("tab__select-custom4")[0];
 
 let tabTrigger_4 = customSelect_4.children[0];
 let customSelectOpts_4 = customSelect_4.children[1];
@@ -606,8 +606,8 @@ customOptsList_4.forEach(function(elOption, index) {
 
 // ------------------------------------------
 
-let nativeSelect_6 = document.getElementsByClassName("js-tabNative_6")[0];
-let customSelect_6 = document.getElementsByClassName("js-tabCustom_6")[0];
+let nativeSelect_6 = document.getElementsByClassName("tab__select-native6")[0];
+let customSelect_6 = document.getElementsByClassName("tab__select-custom6")[0];
 
 let tabTrigger_6 = customSelect_6.children[0];
 let customSelectOpts_6 = customSelect_6.children[1];

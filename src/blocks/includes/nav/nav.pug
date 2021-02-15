@@ -6,7 +6,7 @@ nav#nav
                 each txt, i in ['Главная', 'О компании', 'Ссылка 1', 'Ссылка 2', 'Ссылка 3']
                     if i == 0
                         li.nav__item
-                            a(href="#").nav__link.nav__link_active.prevent-link= txt
+                            a(href="#").nav__link.nav__link--active.prevent-link= txt
                     else
                         li.nav__item
                             a(href="#").nav__link.prevent-link= txt
