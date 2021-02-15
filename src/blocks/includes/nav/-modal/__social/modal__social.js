@@ -1,7 +1,7 @@
-let naVmodal = document.querySelector('.nav-modal');
+let naVmodal = document.querySelector(".nav-modal");
 
-naVmodal.onclick = function (e) {
-    if (e.target.nodeName != 'A') return;
-    naVmodal.style.display = 'none';
-}
-
+naVmodal.onclick = function(e) {
+  if (e.target.nodeName != "A") return;
+  naVmodal.style.display = "none";
+  document.body.style.overflowY = "visible";
+};

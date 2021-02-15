@@ -7,14 +7,16 @@
   text-transform: uppercase;
   justify-self: end;
   padding: 0 rem(32);
-  @media screen and (max-width: 720px) {
-    justify-self: stretch;
+
+  @media screen and (max-width: 1350px) {
+    padding: 0 rem(25);
   }
-  @media screen and (max-width: 1152px) {
-    font-size: rem(13);
-  }
+
   @media screen and (max-width: 1024px) {
     font-size: rem(14);
+  }
+  @media screen and (max-width: 720px) {
+    justify-self: stretch;
   }
 
   &:hover {
