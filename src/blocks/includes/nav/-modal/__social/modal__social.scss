@@ -16,6 +16,7 @@
   }
 
   &__link {
+    font-family: $mainFont;
     display: block;
     color: white;
     font-size: rem(14);
@@ -24,21 +25,21 @@
     text-align: center;
     margin-top: rem(24);
 
-    &_facebook {
+    &-facebook {
       background-color: #3b5998;
 
       &:hover {
         background-color: hsla(221, 44%, 41%, 0.85);
       }
     }
-    &_twitter {
+    &-twitter {
       background-color: #41abe1;
 
       &:hover {
         background-color: rgba(65, 172, 225, 0.85);
       }
     }
-    &_google {
+    &-google {
       background-color: #ea4335;
 
       &:hover {
