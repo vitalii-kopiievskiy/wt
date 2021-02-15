@@ -3,10 +3,10 @@ each select in ['1','2','3','4','6']
         select(aria-labelledby=`tabJobLabel_${select}` name=`tabSelect_${select}` class= `tab__select-native${select}`).tab__select-native
             option(value=`tabSel_${select}` disabled='' selected='')= `Select ${select}`
             each val in ['1','2','3']
-                option(value=`tabLink_${val}`)= `Item ${val}`
+                option(value=`${val}`)= `Item ${val}`
         .tab__select-custom(aria-hidden='true' class= `tab__select-custom${select}`)
             .tab__trigger= `Select ${select}`
             .tab__options
                 each val in ['1','2','3']
-                    .tab__option(data-value=`tabLink_${val}`)= `Item ${val}`
+                    .tab__option(data-value=`${val}`)= `Item ${val}`
 include __price/tab__price
