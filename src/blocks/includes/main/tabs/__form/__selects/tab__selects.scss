@@ -6,14 +6,14 @@
   }
 
   &__select {
-    &_native,
-    &_custom {
+    &-native,
+    &-custom {
       position: relative;
       width: 100%;
       height: 100%;
     }
 
-    &_native {
+    &-native {
       -webkit-appearance: none;
       -moz-appearance: none;
       background-image: url("data:image/svg+xml;utf8,<svg fill='darkorange' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
@@ -29,7 +29,7 @@
       padding-left: rem(15);
     }
 
-    &_custom {
+    &-custom {
       position: absolute;
       top: 0;
       left: 0;
@@ -52,11 +52,11 @@
   }
 
   @media (hover: hover) {
-    &__select_custom {
+    &__select-custom {
       display: block;
     }
 
-    &__select_native:focus + &__select_custom {
+    &__select-native:focus + &__select-custom {
       display: none;
     }
   }
