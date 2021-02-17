@@ -3,7 +3,7 @@ ul.header-actions
         .header-actions__label#compareLabel
                 img(src="./assets/img/header/label.svg", alt="label icon")
                 span.header-actions__label-content
-        button.header-actions__button
+        button.header-actions__button#compareBtn
             img(src="./assets/img/header/сompare_icon.svg", alt="сompare icon").header-actions__icon
             | Сравнение
     li.header-actions__border
@@ -11,14 +11,19 @@ ul.header-actions
         .header-actions__label#wishLabel
                 img(src="./assets/img/header/label.svg", alt="label icon")
                 span.header-actions__label-content
-        button.header-actions__button
+        button.header-actions__button#wishBtn
             img(src="./assets/img/header/favorites_icon.svg", alt="favorites icon").header-actions__icon
             | Избранное
     li.header-actions__border
-    li.header-actions__item
+    li.header-actions__item.cart
         .header-actions__label#cartLabel
             img(src="./assets/img/header/label.svg", alt="label icon")
             span.header-actions__label-content
-        button.header-actions__button
+        button.header-actions__button#cartBtn
             img(src="./assets/img/header/cart_icon.svg", alt="cart icon").header-actions__icon
             |Корзина
+    .cart-modal
+        .cart-modal__content
+            span.cart-modal__btn-close#closeCartBtn
+            h2.cart-modal__title Корзина покупателя
+            .cart-modal__list
