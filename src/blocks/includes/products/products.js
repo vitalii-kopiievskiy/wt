@@ -5,9 +5,10 @@ let cartLabel = document.getElementById("cartLabel");
 let cartLabelTxt = cartLabel.children[1];
 let cartBtn = document.getElementById("cartBtn");
 let closeCartBtn = document.getElementById("closeCartBtn");
+let clearCartBtn = document.getElementById("clearCartBtn");
 
 let cartModal = document.querySelector(".cart-modal");
-let cartList = document.querySelector(".cart-modal__list");
+let cartBlock = document.querySelector(".cart-modal__block");
 
 let compareButtons = document.querySelectorAll(".products-compare");
 let compareLabel = document.getElementById("compareLabel");
@@ -24,6 +25,10 @@ function getCartData() {
 function setCartData(item) {
   localStorage.setItem("cart", JSON.stringify(item));
   return false;
+}
+
+function removeCartData() {
+  localStorage.removeItem("cart");
 }
 
 function addToCart() {
@@ -70,7 +75,7 @@ function buildCartList() {
     let totalSum = 0;
     let totelAmount = 0;
     let totalItems =
-      '<table class="cart__list"><tr><th>Наименование</th><th>Цена</th><th>Кол-во</th></tr>';
+      '<table class="cart-modal__list"><tr><th>Наименование</th><th>Цена</th><th>Кол-во</th></tr>';
 
     cartDataEntries.forEach((cartEntries) => {
       let cartId = cartEntries[0];
@@ -88,10 +93,14 @@ function buildCartList() {
 
     totalItems += `<tr><th>Всего к оплате</th><th>${totalSum} грн.</th><th>${totelAmount} шт.</th></tr>`;
     totalItems += "</table>";
-    cartList.innerHTML = totalItems;
+
+    cartBlock.innerHTML = totalItems;
+    cartBlock.style.display = "block";
+    clearCartBtn.style.display = "block";
   } else {
-    cartList.previousElementSibling.innerHTML = "Корзина пуста";
-    console.log(cartList.previousElementSibling);
+    cartBlock.previousElementSibling.innerHTML = "Корзина пуста";
+    cartBlock.style.display = "none";
+    clearCartBtn.style.display = "none";
   }
 }
 
@@ -108,6 +117,11 @@ function closeCart() {
 }
 
 cartBtn.addEventListener("click", openCart);
+clearCartBtn.onclick = function() {
+  removeCartData();
+  buildCartList();
+  cartLabel.style.display = "none";
+};
 closeCartBtn.addEventListener("click", closeCart);
 
 // function getCompareData() {

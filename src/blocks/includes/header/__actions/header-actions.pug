@@ -15,7 +15,7 @@ ul.header-actions
             img(src="./assets/img/header/favorites_icon.svg", alt="favorites icon").header-actions__icon
             | Избранное
     li.header-actions__border
-    li.header-actions__item.cart
+    li.header-actions__item
         .header-actions__label#cartLabel
             img(src="./assets/img/header/label.svg", alt="label icon")
             span.header-actions__label-content
@@ -26,4 +26,5 @@ ul.header-actions
         .cart-modal__content
             span.cart-modal__btn-close#closeCartBtn
             h2.cart-modal__title Корзина покупателя
-            .cart-modal__list
+            .cart-modal__block
+            button.btn.cart-modal__btn-clear#clearCartBtn Очистить корзину

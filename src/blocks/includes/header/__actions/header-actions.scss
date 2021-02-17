@@ -89,9 +89,13 @@
     color: #3b3b3b;
     font-weight: 700;
     line-height: 40px;
+    padding: rem(20) 0;
     @include advFont(24, 18);
   }
-
+  &__list {
+    width: 100%;
+    padding: rem(20);
+  }
   &__list td,
   &__list th {
     padding: 10px;
@@ -140,5 +144,10 @@
       background-color: rgb(219, 53, 61);
       transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
     }
+  }
+  &__btn-clear {
+    width: 100%;
+    padding: rem(14);
+    margin-top: rem(20);
   }
 }
