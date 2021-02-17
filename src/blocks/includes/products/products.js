@@ -88,6 +88,7 @@ function buildCartList() {
       cartItem.forEach((value) => {
         totalItems += `<td>${value}</td>`;
       });
+      totalItems += `<td><span class= 'cart-modal__el-clear' data-value= ${cartId} onclick="removeCartItem()">Удалить</span></td>`;
       totalItems += "</tr>";
     });
 
@@ -103,6 +104,9 @@ function buildCartList() {
     clearCartBtn.style.display = "none";
   }
 }
+function removeCartItem() {
+  console.log("Hello");
+}
 
 function openCart() {
   buildCartList();
@@ -115,12 +119,28 @@ function closeCart() {
   cartModal.style.display = "none";
   document.body.style.overflowY = "visible";
 }
-
+function setBuyButtonsContent() {
+  if (getCartData()) {
+    showCartLabel(getCartData());
+    buyButtons.forEach(function(buyButton) {
+      for (let key of Object.keys(getCartData())) {
+        if (buyButton.getAttribute("data-id") == key) {
+          buyButton.lastChild.textContent = "В корзине";
+        }
+      }
+    });
+  } else {
+    buyButtons.forEach(function(buyButton) {
+      buyButton.lastChild.textContent = "Купить товар";
+    });
+    cartLabel.style.display = "none";
+  }
+}
 cartBtn.addEventListener("click", openCart);
 clearCartBtn.onclick = function() {
   removeCartData();
   buildCartList();
-  cartLabel.style.display = "none";
+  setBuyButtonsContent();
 };
 closeCartBtn.addEventListener("click", closeCart);
 
@@ -213,16 +233,7 @@ closeCartBtn.addEventListener("click", closeCart);
 // });
 
 window.addEventListener("load", function() {
-  if (getCartData()) {
-    showCartLabel(getCartData());
-    buyButtons.forEach(function(buyButton) {
-      for (let key of Object.keys(getCartData())) {
-        if (buyButton.getAttribute("data-id") == key) {
-          buyButton.lastChild.textContent = "В корзине";
-        }
-      }
-    });
-  }
+  setBuyButtonsContent();
   // if (getCompareData()) {
   //   showCompare(getCompareData());
   //   compareButtons.forEach(function(compareButton) {

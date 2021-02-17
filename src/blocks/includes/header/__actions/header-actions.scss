@@ -150,4 +150,11 @@
     padding: rem(14);
     margin-top: rem(20);
   }
+  &__el-clear {
+    cursor: pointer;
+    color: #f8a547;
+    &:hover {
+      color: red;
+    }
+  }
 }
