@@ -66,7 +66,9 @@ function showCartLabel(data) {
 buyButtons.forEach(function(buyButton) {
   buyButton.addEventListener("click", addToCart);
 });
-
+function removeCartItem() {
+  alert("Hello");
+}
 function buildCartList() {
   if (getCartData()) {
     let cartData = getCartData();
@@ -88,7 +90,7 @@ function buildCartList() {
       cartItem.forEach((value) => {
         totalItems += `<td>${value}</td>`;
       });
-      totalItems += `<td><span class= 'cart-modal__el-clear' data-value= ${cartId} onclick="removeCartItem()">Удалить</span></td>`;
+      totalItems += `<td><span class= 'cart-modal__el-clear' data-id= ${cartId} onclick="removeCartItem()">Удалить</span></td>`;
       totalItems += "</tr>";
     });
 
@@ -96,6 +98,7 @@ function buildCartList() {
     totalItems += "</table>";
 
     cartBlock.innerHTML = totalItems;
+    cartBlock.previousElementSibling.innerHTML = "Корзина покупателя";
     cartBlock.style.display = "block";
     clearCartBtn.style.display = "block";
   } else {
@@ -103,9 +106,6 @@ function buildCartList() {
     cartBlock.style.display = "none";
     clearCartBtn.style.display = "none";
   }
-}
-function removeCartItem() {
-  console.log("Hello");
 }
 
 function openCart() {
@@ -137,6 +137,7 @@ function setBuyButtonsContent() {
   }
 }
 cartBtn.addEventListener("click", openCart);
+
 clearCartBtn.onclick = function() {
   removeCartData();
   buildCartList();
