@@ -58,9 +58,13 @@ function addToCart() {
 }
 
 function showCartLabel(data) {
-  let sum = Object.values(data).reduce((sum, current) => sum + current[2], 0);
-  cartLabelTxt.textContent = sum;
-  cartLabel.style.display = "block";
+  if (data) {
+    let sum = Object.values(data).reduce((sum, current) => sum + current[2], 0);
+    cartLabelTxt.textContent = sum;
+    cartLabel.style.display = "block";
+  } else {
+    cartLabel.style.display = "none";
+  }
 }
 
 buyButtons.forEach(function(buyButton) {
@@ -119,9 +123,9 @@ function closeCart() {
   cartModal.style.display = "none";
   document.body.style.overflowY = "visible";
 }
+
 function setBuyButtonsContent() {
   if (getCartData()) {
-    showCartLabel(getCartData());
     buyButtons.forEach(function(buyButton) {
       for (let key of Object.keys(getCartData())) {
         if (buyButton.getAttribute("data-id") == key) {
@@ -133,7 +137,6 @@ function setBuyButtonsContent() {
     buyButtons.forEach(function(buyButton) {
       buyButton.lastChild.textContent = "Купить товар";
     });
-    cartLabel.style.display = "none";
   }
 }
 cartBtn.addEventListener("click", openCart);
@@ -142,6 +145,7 @@ clearCartBtn.onclick = function() {
   removeCartData();
   buildCartList();
   setBuyButtonsContent();
+  showCartLabel(getCartData());
 };
 closeCartBtn.addEventListener("click", closeCart);
 
@@ -235,6 +239,7 @@ closeCartBtn.addEventListener("click", closeCart);
 
 window.addEventListener("load", function() {
   setBuyButtonsContent();
+  showCartLabel(getCartData());
   // if (getCompareData()) {
   //   showCompare(getCompareData());
   //   compareButtons.forEach(function(compareButton) {
