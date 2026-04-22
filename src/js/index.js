@@ -19,6 +19,7 @@ import "../blocks/includes/main/tabs/__form/__selects/__price/tab__price";
 
 // products
 import "../blocks/includes/products/products";
+import "../blocks/includes/products/__items/__item/product";
 
 // footer
 import "../blocks/includes/footer/footer-top/footer__content-block/subscribe-form/subscribe-form";

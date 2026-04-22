@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карточка товара</title>
+
+  <link rel="stylesheet" href="./assets/css/style.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+
+        <a class="header__logo" href="index.html">
+          Auto Shop
+        </a>
+
+        <nav class="header__nav">
+          <a href="index.html">Каталог</a>
+        </nav>
+
+        <div class="header__actions">
+          <a href="#" class="header__action">
+            Сравнение
+            <span id="compareLabel" style="display:none;">
+              <span class="header__count-icon">•</span>
+              <span>0</span>
+            </span>
+          </a>
+
+          <a href="#" class="header__action">
+            Избранное
+            <span id="wishLabel" style="display:none;">
+              <span class="header__count-icon">•</span>
+              <span>0</span>
+            </span>
+          </a>
+
+          <a href="#" class="header__action">
+            Корзина
+            <span id="cartLabel" style="display:none;">
+              <span class="header__count-icon">•</span>
+              <span>0</span>
+            </span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="product-page">
+      <div class="container">
+        <div id="productDetail"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./assets/js/product.js"></script>
+</body>
+</html>
