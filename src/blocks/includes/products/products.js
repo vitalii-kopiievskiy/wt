@@ -193,7 +193,11 @@ function renderProductCard(product) {
       <span class="products__marker"></span>
 
       <div class="products__caption">
-        <h2 class="products__title">${escapeHtml(product.name)}</h2>
+        <h2 class="products__title">
+          <a href="product.html?slug=${encodeURIComponent(product.slug)}">
+            ${escapeHtml(product.name)}
+          </a>
+        </h2>
         ${product.description ? `<p class="products__subtitle">${escapeHtml(product.description)}</p>` : ""}
       </div>
 
