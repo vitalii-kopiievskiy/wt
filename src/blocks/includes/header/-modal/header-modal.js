@@ -4,15 +4,18 @@ let headerModal = document.querySelector(".header-modal");
 let submitHeaderBtn = document.getElementById("submitHeaderBtn");
 let phoneField = document.getElementById("phoneField");
 
+if (headerForm && closeHeaderBtn && headerModal && submitHeaderBtn && phoneField) {
 closeHeaderBtn.onclick = function() {
   headerModal.style.display = "none";
   document.body.style.overflowY = "visible";
 };
 
-let phoneMask = new IMask(phoneField, {
-  mask: "+{38}(000)000-00-00",
-  lazy: false,
-});
+let phoneMask = window.IMask
+  ? new IMask(phoneField, {
+      mask: "+{38}(000)000-00-00",
+      lazy: false,
+    })
+  : null;
 
 phoneField.oninput = function() {
   checkPhoneMatch();
@@ -22,7 +25,11 @@ error.className = "error";
 error.innerHTML = "Пожалуйста заполните поле до конца";
 
 function checkPhoneMatch() {
-  if (phoneMask.unmaskedValue.length == 12) {
+  const valueLength = phoneMask
+    ? phoneMask.unmaskedValue.length
+    : phoneField.value.replace(/\D/g, "").length;
+
+  if (valueLength == 12) {
     submitHeaderBtn.classList.add("active");
     error.remove();
   } else {
@@ -32,7 +39,11 @@ function checkPhoneMatch() {
 }
 
 headerForm.onsubmit = function() {
-  if (phoneMask.unmaskedValue.length != 12) {
+  const valueLength = phoneMask
+    ? phoneMask.unmaskedValue.length
+    : phoneField.value.replace(/\D/g, "").length;
+
+  if (valueLength != 12) {
     phoneField.after(error);
     return false;
   } else {
@@ -40,3 +51,4 @@ headerForm.onsubmit = function() {
     document.body.style.overflowY = "visible";
   }
 };
+}

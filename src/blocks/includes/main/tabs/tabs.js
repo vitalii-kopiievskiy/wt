@@ -1,6 +1,7 @@
 let tabTriggers = document.querySelectorAll('.js-tab-trigger');
 let tabContents = document.querySelectorAll('.js-tab-content');
 
+if (tabTriggers.length && tabContents.length) {
 tabTriggers.forEach(function(trigger) {
     trigger.addEventListener('click', function() {
 
@@ -16,3 +17,4 @@ tabTriggers.forEach(function(trigger) {
         content.classList.add('active');
     });
  });
+}

@@ -1,24 +1,18 @@
+import { getApiErrorMessage, productsApi } from "../../../../../js/api";
+import {
+  addToCart,
+  addToCompare,
+  addToWish,
+  getShopState,
+  SHOP_STATE_CHANGED,
+  syncHeaderCounters,
+} from "../../../../../js/shop-state";
+
 const productContainer = document.getElementById("productDetail");
-
-const cartLabel = document.getElementById("cartLabel");
-const compareLabel = document.getElementById("compareLabel");
-const wishLabel = document.getElementById("wishLabel");
-
-const API_BASE_URL = "http://127.0.0.1:8000";
 const FALLBACK_IMAGE = "./assets/img/products/tire_1.png";
 
-function safeParse(key) {
-  try {
-    return JSON.parse(localStorage.getItem(key)) || {};
-  } catch (error) {
-    console.error(`Ошибка чтения ${key} из localStorage`, error);
-    return {};
-  }
-}
-
-function saveStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
-}
+let currentProduct = null;
+let currentState = null;
 
 function formatPrice(value) {
   return new Intl.NumberFormat("ru-RU").format(Number(value || 0));
@@ -33,56 +27,6 @@ function escapeHtml(value = "") {
     .replaceAll("'", "&#039;");
 }
 
-function updateBadge(labelElement, count) {
-  if (!labelElement) return;
-
-  const textNode = labelElement.children[1];
-  if (!textNode) return;
-
-  textNode.textContent = count;
-  labelElement.style.display = count > 0 ? "block" : "none";
-}
-
-function syncCounters() {
-  const cartData = safeParse("cart");
-  const compareData = safeParse("compare");
-  const wishData = safeParse("wish");
-
-  const cartCount = Object.values(cartData).reduce((sum, item) => {
-    return sum + (item.qty || 0);
-  }, 0);
-
-  updateBadge(cartLabel, cartCount);
-  updateBadge(compareLabel, Object.keys(compareData).length);
-  updateBadge(wishLabel, Object.keys(wishData).length);
-}
-
-function isInStorage(key, productId) {
-  const data = safeParse(key);
-  return Object.prototype.hasOwnProperty.call(data, String(productId));
-}
-
-function addToStorage(key, product, increaseQty = false) {
-  const data = safeParse(key);
-  const id = String(product.id);
-
-  if (data[id]) {
-    if (increaseQty) {
-      data[id].qty += 1;
-    }
-  } else {
-    data[id] = {
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      qty: 1
-    };
-  }
-
-  saveStorage(key, data);
-  syncCounters();
-}
-
 function getSlugFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get("slug");
@@ -93,15 +37,25 @@ function getImageUrl(product) {
 }
 
 function getStockText(product) {
-  if (product.stock_quantity > 0) {
+  if (Number(product.stock_quantity) > 0) {
     return `В наличии: ${product.stock_quantity} шт`;
   }
 
   return "Нет в наличии";
 }
 
-function renderProductPage(product) {
+function makeSnapshotFromDataset(element) {
+  return {
+    id: Number(element.dataset.id),
+    title: element.dataset.title,
+    price: Number(element.dataset.price),
+    qty: 1,
+  };
+}
+
+function renderProductPage(product, state) {
   const imageUrl = getImageUrl(product);
+  const productId = String(product.id);
   const oldPrice = product.old_price
     ? `
       <p class="product-detail__old-price">
@@ -110,9 +64,9 @@ function renderProductPage(product) {
     `
     : "";
 
-  const cartText = isInStorage("cart", product.id) ? "В корзине" : "Купить товар";
-  const compareText = isInStorage("compare", product.id) ? "В сравнении" : "Сравнить";
-  const wishText = isInStorage("wish", product.id) ? "В избранном" : "В избранное";
+  const cartText = state.cartIds.has(productId) ? "В корзине" : "В корзину";
+  const compareText = state.compareIds.has(productId) ? "В сравнении" : "Сравнить";
+  const wishText = state.wishIds.has(productId) ? "В избранном" : "В избранное";
 
   document.title = product.name;
 
@@ -177,8 +131,33 @@ function renderProductPage(product) {
           ${escapeHtml(product.description || "Описание пока не добавлено.")}
         </p>
       </div>
+
+      <a class="product-detail__back" href="index.html">Вернуться в каталог</a>
     </div>
   `;
+}
+
+function updateRenderedButtons(state) {
+  currentState = state;
+  const detail = document.querySelector(".product-detail");
+  if (!detail) return;
+
+  const id = String(detail.dataset.productId);
+  const buyButton = detail.querySelector(".product-detail__buy");
+  const compareButton = detail.querySelector(".product-detail__compare");
+  const wishButton = detail.querySelector(".product-detail__wish");
+
+  if (buyButton) {
+    buyButton.textContent = state.cartIds.has(id) ? "В корзине" : "В корзину";
+  }
+
+  if (compareButton) {
+    compareButton.textContent = state.compareIds.has(id) ? "В сравнении" : "Сравнить";
+  }
+
+  if (wishButton) {
+    wishButton.textContent = state.wishIds.has(id) ? "В избранном" : "В избранное";
+  }
 }
 
 async function loadProduct() {
@@ -187,75 +166,65 @@ async function loadProduct() {
   const slug = getSlugFromUrl();
 
   if (!slug) {
-    productContainer.innerHTML = "<p>Slug товара не найден в URL.</p>";
+    productContainer.innerHTML = "<p class=\"product-detail__message\">Slug товара не найден в URL.</p>";
     return;
   }
 
-  productContainer.innerHTML = "<p>Загрузка товара...</p>";
+  productContainer.innerHTML = "<p class=\"product-detail__message\">Загрузка товара...</p>";
 
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/products/slug/${encodeURIComponent(slug)}`
-    );
+    const [product, state] = await Promise.all([
+      productsApi.bySlug(slug),
+      getShopState(),
+    ]);
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        productContainer.innerHTML = "<p>Товар не найден.</p>";
-        return;
-      }
-
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    const product = await response.json();
-    productContainer.innerHTML = renderProductPage(product);
+    currentProduct = product;
+    currentState = state;
+    productContainer.innerHTML = renderProductPage(product, state);
   } catch (error) {
     console.error("Ошибка загрузки товара:", error);
-    productContainer.innerHTML = "<p>Не удалось загрузить товар.</p>";
+    productContainer.innerHTML = `<p class="product-detail__message">${escapeHtml(getApiErrorMessage(error))}</p>`;
   }
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", async function(event) {
   const buyButton = event.target.closest(".product-detail__buy");
   const compareButton = event.target.closest(".product-detail__compare");
   const wishButton = event.target.closest(".product-detail__wish");
 
-  if (buyButton) {
-    addToStorage(
-      "cart",
-      {
-        id: buyButton.dataset.id,
-        title: buyButton.dataset.title,
-        price: Number(buyButton.dataset.price)
-      },
-      true
-    );
+  try {
+    if (buyButton) {
+      buyButton.disabled = true;
+      const state = await addToCart(makeSnapshotFromDataset(buyButton));
+      updateRenderedButtons(state);
+      buyButton.disabled = false;
+    }
 
-    buyButton.textContent = "В корзине";
+    if (compareButton) {
+      const state = await addToCompare(makeSnapshotFromDataset(compareButton));
+      updateRenderedButtons(state);
+    }
+
+    if (wishButton) {
+      const state = await addToWish(makeSnapshotFromDataset(wishButton));
+      updateRenderedButtons(state);
+    }
+  } catch (error) {
+    console.error("Ошибка действия с товаром:", error);
+    if (buyButton) buyButton.disabled = false;
+    alert(getApiErrorMessage(error));
   }
+});
 
-  if (compareButton) {
-    addToStorage("compare", {
-      id: compareButton.dataset.id,
-      title: compareButton.dataset.title,
-      price: Number(compareButton.dataset.price)
-    });
-
-    compareButton.textContent = "В сравнении";
-  }
-
-  if (wishButton) {
-    addToStorage("wish", {
-      id: wishButton.dataset.id,
-      title: wishButton.dataset.title,
-      price: Number(wishButton.dataset.price)
-    });
-
-    wishButton.textContent = "В избранном";
+window.addEventListener(SHOP_STATE_CHANGED, (event) => {
+  if (event.detail && currentProduct) {
+    updateRenderedButtons(event.detail);
   }
 });
 
 window.addEventListener("load", async function() {
-  syncCounters();
+  if (!productContainer) return;
+
+  await syncHeaderCounters();
   await loadProduct();
 });

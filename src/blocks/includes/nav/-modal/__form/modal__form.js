@@ -1,4 +1,8 @@
+import { authApi, getApiErrorMessage } from "../../../../../js/api";
+import { syncGuestStateToAccount } from "../../../../../js/shop-state";
+
 let navForm = document.getElementById("navForm");
+let navModal = document.querySelector(".nav-modal");
 let email = document.getElementById("emailField");
 let password = document.getElementById("passField");
 let submitNavBtn = document.getElementById("submitNavBtn");
@@ -10,6 +14,19 @@ function generateError(text) {
   error.className = "error";
   error.innerHTML = text;
   return error;
+}
+
+function removeSubmitError() {
+  const error = navForm && navForm.querySelector(".form__submit-error");
+  if (error) error.remove();
+}
+
+function showSubmitError(text) {
+  removeSubmitError();
+
+  let error = generateError(text);
+  error.classList.add("form__submit-error");
+  submitNavBtn.before(error);
 }
 
 function checkEmailMatch() {
@@ -30,7 +47,7 @@ function removeValidationEmail() {
   if (email.classList.contains("invalid")) {
     email.classList.remove("invalid");
     let emailError = email.nextSibling;
-    emailError.remove();
+    if (emailError) emailError.remove();
   }
 
   email.classList.remove("valid");
@@ -41,8 +58,8 @@ function checkPasswordMatch() {
     let error = generateError("Пожалуйста заполните поле");
     password.after(error);
     password.classList.add("invalid");
-  } else if (password.value.length < 4) {
-    let error = generateError("Пожалуйста, введите минимум 4 символа");
+  } else if (password.value.length < 6) {
+    let error = generateError("Пожалуйста, введите минимум 6 символов");
     password.after(error);
     password.classList.add("invalid");
   } else {
@@ -54,7 +71,7 @@ function removeValidationPass() {
   if (password.classList.contains("invalid")) {
     password.classList.remove("invalid");
     let passError = password.nextSibling;
-    passError.remove();
+    if (passError) passError.remove();
   }
 
   password.classList.remove("valid");
@@ -71,39 +88,66 @@ function checkValidation() {
   }
 }
 
-email.oninput = function() {
-  removeValidationEmail();
-  checkEmailMatch();
-  checkValidation();
-};
+if (navForm && email && password && submitNavBtn) {
+  email.oninput = function() {
+    removeSubmitError();
+    removeValidationEmail();
+    checkEmailMatch();
+    checkValidation();
+  };
 
-email.onfocus = function() {
-  removeValidationEmail();
-};
+  email.onfocus = function() {
+    removeSubmitError();
+    removeValidationEmail();
+  };
 
-password.oninput = function() {
-  removeValidationPass();
-  checkPasswordMatch();
-  checkValidation();
-};
+  password.oninput = function() {
+    removeSubmitError();
+    removeValidationPass();
+    checkPasswordMatch();
+    checkValidation();
+  };
 
-password.onfocus = function() {
-  removeValidationPass();
-};
+  password.onfocus = function() {
+    removeSubmitError();
+    removeValidationPass();
+  };
 
-navForm.onsubmit = function() {
-  removeValidationEmail();
-  checkEmailMatch();
-  removeValidationPass();
-  checkPasswordMatch();
+  navForm.onsubmit = async function(event) {
+    event.preventDefault();
+    removeSubmitError();
+    removeValidationEmail();
+    checkEmailMatch();
+    removeValidationPass();
+    checkPasswordMatch();
 
-  if (
-    email.classList.contains("invalid") ||
-    password.classList.contains("invalid")
-  ) {
+    if (
+      email.classList.contains("invalid") ||
+      password.classList.contains("invalid")
+    ) {
+      return false;
+    }
+
+    submitNavBtn.disabled = true;
+
+    try {
+      await authApi.login({
+        email: email.value.trim(),
+        password: password.value,
+      });
+
+      await syncGuestStateToAccount();
+
+      if (navModal) {
+        navModal.style.display = "none";
+        document.body.style.overflowY = "visible";
+      }
+    } catch (error) {
+      showSubmitError(getApiErrorMessage(error));
+    } finally {
+      submitNavBtn.disabled = false;
+    }
+
     return false;
-  } else {
-    modal.style.display = "none";
-    document.body.style.overflowY = "visible";
-  }
-};
+  };
+}

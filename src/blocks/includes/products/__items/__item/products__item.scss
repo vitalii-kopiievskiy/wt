@@ -9,8 +9,14 @@
 .products__item {
   padding: 20px 9px 15px;
   display: grid;
-  grid-template-rows: 22px 50px 19px 251px 34px 50px 33px;
-  grid-row-gap: 13px;
+  grid-template-rows: 22px 118px 28px 251px 34px 50px 33px;
+  grid-row-gap: 12px;
+  align-items: start;
+
+  .products__caption {
+    min-width: 0;
+    overflow: hidden;
+  }
 
   &:nth-child(1),
   &:nth-child(2) {

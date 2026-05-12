@@ -6,6 +6,13 @@ let closeSubscribeModalBtn = document.getElementById("closeSubscribeModalBtn");
 
 let emailRegExp = /.+@.+\..+/i;
 
+if (
+  subscribeForm &&
+  subscribeEmail &&
+  confirmSubscribeBtn &&
+  subscribeModal &&
+  closeSubscribeModalBtn
+) {
 function checkSubEmailMatch() {
   if (!subscribeEmail.value) {
     subscribeEmail.classList.add("invalid");
@@ -48,5 +55,6 @@ confirmSubscribeBtn.onclick = function() {
 closeSubscribeModalBtn.onclick = function() {
   subscribeModal.style.display = "none";
   document.body.style.overflowY = "visible";
-  subscribeForm.submit();
+  subscribeForm.reset();
 };
+}

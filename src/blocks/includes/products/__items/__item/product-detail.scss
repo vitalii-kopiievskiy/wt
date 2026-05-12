@@ -1,0 +1,150 @@
+.product-page {
+  #wrapper {
+    grid-template-areas:
+      "nav nav nav nav"
+      "header header header header"
+      "main main main main"
+      "footer footer footer footer";
+    grid-template-rows: 50px 50px 1fr auto;
+  }
+
+  &__section {
+    padding: rem(20) 0 rem(40);
+  }
+}
+
+.product-detail {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  padding: rem(28);
+
+  &__message {
+    color: #3b3b3b;
+    font-size: rem(16);
+    line-height: rem(24);
+    padding: rem(20) 0;
+  }
+
+  &__top {
+    display: grid;
+    grid-template-columns: minmax(260px, 420px) 1fr;
+    gap: rem(32);
+    align-items: start;
+
+    @media screen and (max-width: 760px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: rem(320);
+    background-color: #f7f7f7;
+    border: 1px solid #ededed;
+
+    img {
+      max-width: 90%;
+      max-height: rem(280);
+      object-fit: contain;
+    }
+  }
+
+  &__category,
+  &__brand,
+  &__stock {
+    color: #757575;
+    font-size: rem(14);
+    line-height: rem(22);
+  }
+
+  &__title {
+    color: #101010;
+    font-size: rem(28);
+    line-height: rem(36);
+    margin: rem(8) 0 rem(14);
+
+    @media screen and (max-width: 520px) {
+      font-size: rem(22);
+      line-height: rem(30);
+    }
+  }
+
+  &__prices {
+    display: flex;
+    align-items: baseline;
+    gap: rem(14);
+    margin: rem(24) 0;
+  }
+
+  &__price {
+    color: #ff8500;
+    font-size: rem(30);
+    font-weight: 700;
+    line-height: rem(36);
+  }
+
+  &__old-price {
+    color: #9c9c9c;
+    font-size: rem(18);
+    text-decoration: line-through;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(12);
+  }
+
+  &__buy,
+  &__compare,
+  &__wish {
+    min-height: rem(46);
+    padding: 0 rem(22);
+    border: none;
+    color: #fff;
+    background-color: #ff8500;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: .65;
+      cursor: default;
+    }
+  }
+
+  &__compare,
+  &__wish {
+    color: #3b3b3b;
+    background-color: #f2f2f2;
+  }
+
+  &__content {
+    margin-top: rem(32);
+    padding-top: rem(24);
+    border-top: 1px solid #dbdbdb;
+  }
+
+  &__subtitle {
+    font-size: rem(20);
+    line-height: rem(28);
+    margin-bottom: rem(10);
+  }
+
+  &__description {
+    color: #3b3b3b;
+    font-size: rem(16);
+    line-height: rem(26);
+  }
+
+  &__back {
+    display: inline-block;
+    color: #ff8500;
+    font-size: rem(15);
+    margin-top: rem(24);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

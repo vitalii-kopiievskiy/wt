@@ -2,6 +2,7 @@ const clearTabButton = document.getElementById("clearTabButton");
 const tabForm = document.getElementById("tabForm");
 const tabTriggers = document.querySelectorAll(".tab__trigger");
 
+if (clearTabButton) {
 clearTabButton.addEventListener("click", function() {
   let priceLines = document.querySelectorAll(".price__line");
 
@@ -18,7 +19,9 @@ clearTabButton.addEventListener("click", function() {
     }
   });
 });
+}
 
+if (tabForm) {
 tabForm.onsubmit = function() {
   let priceLines = document.querySelectorAll(".price__line");
   if (
@@ -27,3 +30,4 @@ tabForm.onsubmit = function() {
   )
     return false;
 };
+}

@@ -1,11 +1,13 @@
 let tabLinks = document.querySelectorAll(".tab__link");
 let selectedLink = document.querySelector(".tab__link--active");
 
+if (tabLinks.length) {
 tabLinks.forEach(function(link) {
   link.onclick = function() {
     activateLink(this);
   };
 });
+}
 
 function activateLink(link) {
   if (selectedLink) {

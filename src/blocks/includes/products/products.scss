@@ -1,2 +1,11 @@
 @import "__headline/products__headline";
 @import "__items/products__items";
+@import "__items/__item/product-detail";
+
+.products__message {
+  grid-column: 1 / -1;
+  color: #3b3b3b;
+  font-size: rem(16);
+  line-height: rem(24);
+  padding: rem(15);
+}

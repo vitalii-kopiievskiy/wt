@@ -15,7 +15,8 @@ html(lang='en')
     #wrapper
       include ../includes/nav/nav
       include ../includes/header/header
-      include ../includes/main/main
-      include ../includes/products/products
+      block content
+        include ../includes/main/main
+        include ../includes/products/products
       include ../includes/footer/footer
     block script
