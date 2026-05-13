@@ -2,6 +2,7 @@ import {
   cartApi,
   favoritesApi,
   getAuthToken,
+  ordersApi,
   productsApi,
   setAuthToken,
 } from "./api";
@@ -73,6 +74,25 @@ function removeLocalItem(key, productId) {
   delete data[String(productId)];
   saveStorage(key, data);
   return data;
+}
+
+function updateLocalCartQuantity(productId, quantity) {
+  const data = safeParse(CART_KEY);
+  const id = String(productId);
+
+  if (Number(quantity) <= 0) {
+    delete data[id];
+  } else if (data[id]) {
+    data[id].qty = Number(quantity);
+  }
+
+  saveStorage(CART_KEY, data);
+  return data;
+}
+
+function clearLocalItems(key) {
+  localStorage.removeItem(key);
+  return {};
 }
 
 function createState({
@@ -186,6 +206,167 @@ export async function addToCart(product) {
       setAuthToken(null);
       addLocalItem(CART_KEY, product, true);
       return syncHeaderCounters();
+    }
+
+    throw error;
+  }
+}
+
+function normalizeLocalCartItem(product) {
+  return {
+    quantity: Number(product.qty || product.quantity || 1),
+    product: {
+      ...product,
+      id: Number(product.id),
+      name: product.name || product.title || "Товар",
+      price: Number(product.price || 0),
+      description: product.description || "",
+    },
+  };
+}
+
+function buildLocalCartResponse(items) {
+  return {
+    items,
+    total_items: items.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+    total_price: items.reduce((sum, item) => {
+      return sum + Number(item.product && item.product.price || 0) * Number(item.quantity || 0);
+    }, 0),
+  };
+}
+
+async function getLocalCartResponse() {
+  const products = Object.values(safeParse(CART_KEY));
+
+  const items = await Promise.all(
+    products.map(async (product) => {
+      try {
+        const detailedProduct = await productsApi.byId(product.id);
+        return {
+          quantity: Number(product.qty || 1),
+          product: detailedProduct,
+        };
+      } catch (error) {
+        console.error("Не удалось загрузить товар из корзины", error);
+        return normalizeLocalCartItem(product);
+      }
+    })
+  );
+
+  return buildLocalCartResponse(items);
+}
+
+export async function getCartData() {
+  if (!getAuthToken()) {
+    return getLocalCartResponse();
+  }
+
+  try {
+    return await cartApi.get();
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
+      return getLocalCartResponse();
+    }
+
+    throw error;
+  }
+}
+
+export async function updateCartQuantity(productId, quantity) {
+  if (!getAuthToken()) {
+    updateLocalCartQuantity(productId, quantity);
+    return syncHeaderCounters();
+  }
+
+  try {
+    const cart =
+      Number(quantity) <= 0
+        ? await cartApi.remove(productId)
+        : await cartApi.update(productId, Number(quantity));
+    const favorites = await favoritesApi.get();
+    const state = stateFromServer(cart, favorites);
+    updateHeaderCounters(state);
+    emitShopStateChanged(state);
+    return state;
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
+      updateLocalCartQuantity(productId, quantity);
+      return syncHeaderCounters();
+    }
+
+    throw error;
+  }
+}
+
+export async function removeFromCart(productId) {
+  if (!getAuthToken()) {
+    removeLocalItem(CART_KEY, productId);
+    return syncHeaderCounters();
+  }
+
+  try {
+    const cart = await cartApi.remove(productId);
+    const favorites = await favoritesApi.get();
+    const state = stateFromServer(cart, favorites);
+    updateHeaderCounters(state);
+    emitShopStateChanged(state);
+    return state;
+  } catch (error) {
+    if (error.status === 404) {
+      return syncHeaderCounters();
+    }
+
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
+      removeLocalItem(CART_KEY, productId);
+      return syncHeaderCounters();
+    }
+
+    throw error;
+  }
+}
+
+export async function clearCartData() {
+  if (!getAuthToken()) {
+    clearLocalItems(CART_KEY);
+    return syncHeaderCounters();
+  }
+
+  try {
+    const cart = await cartApi.clear();
+    const favorites = await favoritesApi.get();
+    const state = stateFromServer(cart, favorites);
+    updateHeaderCounters(state);
+    emitShopStateChanged(state);
+    return state;
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
+      clearLocalItems(CART_KEY);
+      return syncHeaderCounters();
+    }
+
+    throw error;
+  }
+}
+
+export async function createOrderFromCart() {
+  if (!getAuthToken()) {
+    const error = new Error("Для оформления заказа войдите в личный кабинет.");
+    error.detail = error.message;
+    error.status = 401;
+    throw error;
+  }
+
+  try {
+    const response = await ordersApi.createFromCart();
+    await syncHeaderCounters();
+    return response;
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
     }
 
     throw error;
