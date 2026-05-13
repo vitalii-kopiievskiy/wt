@@ -1,0 +1,19 @@
+.account-modal#accountModal(aria-hidden="true")
+    .account-modal__content.animate(role="dialog" aria-modal="true" aria-labelledby="accountTitle")
+        span.account-modal__btn-close#closeAccountBtn
+        .account-modal__header
+            .account-modal__profile
+                h2.account-modal__title#accountTitle Личный кабинет
+                p.account-modal__name#accountUserName
+                p.account-modal__email#accountUserEmail
+        .account-modal__body
+            section.account-modal__section
+                .account-modal__section-head
+                    h3.account-modal__subtitle Мои заказы
+                    button(type="button").account-modal__refresh#refreshOrdersBtn Обновить
+                .account-modal__orders#accountOrdersList
+                    p.account-modal__message Загрузка заказов...
+            section.account-modal__section.account-modal__section--details
+                h3.account-modal__subtitle Детали заказа
+                .account-modal__details#accountOrderDetails
+                    p.account-modal__message Выберите заказ из списка.

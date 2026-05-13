@@ -215,6 +215,18 @@ export const favoritesApi = {
 };
 
 export const ordersApi = {
+  list() {
+    return request("/orders/", {
+      auth: true,
+    });
+  },
+
+  byId(orderId) {
+    return request(`/orders/${Number(orderId)}`, {
+      auth: true,
+    });
+  },
+
   createFromCart() {
     return request("/orders/", {
       method: "POST",

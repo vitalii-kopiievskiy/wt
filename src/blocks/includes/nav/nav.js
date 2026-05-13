@@ -1,4 +1,5 @@
 import { isAuthenticated } from "../../../js/api";
+import { openAccountModal } from "./-account/account-modal";
 
 let enterNavButton = document.querySelector("#enterNavBtn");
 let naVmodal = document.querySelector(".nav-modal");
@@ -6,8 +7,11 @@ let navList = document.querySelector(".nav__list");
 let selectedNavLink = document.querySelector(".nav__link--active");
 
 if (enterNavButton && naVmodal) {
-  enterNavButton.onclick = function() {
-    if (isAuthenticated()) return;
+  enterNavButton.onclick = async function() {
+    if (isAuthenticated()) {
+      await openAccountModal();
+      return;
+    }
 
     naVmodal.style.display = "block";
     document.body.style.overflowY = "hidden";

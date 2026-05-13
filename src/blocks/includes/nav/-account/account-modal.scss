@@ -1,0 +1,238 @@
+.account-modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &__content {
+    position: relative;
+    width: rem(860);
+    max-width: calc(100% - 32px);
+    max-height: calc(100vh - 72px);
+    margin: rem(56) auto rem(32);
+    padding: rem(28) rem(32);
+    overflow-y: auto;
+    background-color: white;
+
+    @media screen and (max-width: 720px) {
+      width: calc(100% - 24px);
+      max-width: none;
+      margin: rem(32) auto rem(20);
+      padding: rem(24) rem(18);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: rem(16);
+    padding-bottom: rem(18);
+    border-bottom: 1px solid #e4e4e4;
+  }
+
+  &__title {
+    color: #3b3b3b;
+    font-family: $mainFont;
+    font-size: rem(24);
+    font-weight: 700;
+    line-height: 40px;
+  }
+
+  &__name,
+  &__email,
+  &__message,
+  &__meta,
+  &__item-line {
+    color: #686868;
+    font-size: rem(14);
+    line-height: 22px;
+  }
+
+  &__name {
+    color: #3b3b3b;
+    font-weight: 700;
+  }
+
+  &__refresh,
+  &__details-btn {
+    min-height: rem(38);
+    padding: 0 rem(18);
+    background-color: #ff8900;
+    color: white;
+    font-family: $mainFont;
+    font-size: rem(12);
+    font-weight: 700;
+    line-height: 18px;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: #f8a547;
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.55;
+    }
+  }
+
+  &__refresh {
+    background-color: #afb9c6;
+
+    &:hover {
+      background-color: #c4ccd6;
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: rem(24);
+    margin-top: rem(22);
+
+    @media screen and (max-width: 760px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(12);
+    margin-bottom: rem(12);
+  }
+
+  &__subtitle {
+    color: #3b3b3b;
+    font-family: $mainFont;
+    font-size: rem(18);
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  &__orders,
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+  }
+
+  &__order,
+  &__details-card {
+    border: 1px solid #e4e4e4;
+    padding: rem(14);
+    background-color: #fff;
+  }
+
+  &__order.is-active {
+    border-color: #ff8900;
+  }
+
+  &__order-head,
+  &__details-head,
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: rem(12);
+  }
+
+  &__order-title,
+  &__details-title,
+  &__item-name {
+    color: #2b2b2b;
+    font-size: rem(16);
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    min-height: rem(24);
+    margin-top: rem(8);
+    padding: 0 rem(10);
+    background-color: #f2f2f2;
+    color: #3b3b3b;
+    font-size: rem(12);
+    font-weight: 700;
+    line-height: 18px;
+    text-transform: uppercase;
+  }
+
+  &__total {
+    color: #3b3b3b;
+    font-size: rem(18);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 26px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__details-btn {
+    align-self: flex-start;
+    margin-top: rem(12);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    margin-top: rem(14);
+  }
+
+  &__item {
+    padding-top: rem(10);
+    border-top: 1px solid #e4e4e4;
+  }
+
+  &__item-price {
+    color: #3b3b3b;
+    font-size: rem(14);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 22px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__btn-close {
+    position: absolute;
+    right: rem(14);
+    top: rem(14);
+    width: rem(40);
+    height: rem(40);
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: rem(19);
+      width: rem(2);
+      height: rem(40);
+      content: " ";
+      background-color: #dbdbdb;
+      transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover:before,
+    &:hover:after {
+      background-color: rgb(219, 53, 61);
+    }
+  }
+}
