@@ -7,6 +7,7 @@ import "../blocks/includes/nav/burger/burger";
 
 // header
 import "../blocks/includes/header/-modal/header-modal";
+import "../blocks/includes/header/-favorites/header-favorites";
 import "../blocks/includes/header/__contacts/header__contacts";
 
 // main

@@ -1,0 +1,167 @@
+.header-favorites {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: rem(760);
+    max-width: calc(100% - 32px);
+    max-height: calc(100vh - 72px);
+    margin: rem(90) auto;
+    padding: rem(28) rem(32);
+    background-color: white;
+
+    @media screen and (max-width: 720px) {
+      width: calc(100% - 24px);
+      max-width: none;
+      margin: rem(48) auto;
+      padding: rem(24) rem(18);
+    }
+  }
+
+  &__title {
+    color: #3b3b3b;
+    font-family: $mainFont;
+    font-size: rem(24);
+    font-weight: 700;
+    line-height: 40px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: rem(16);
+    margin-top: rem(18);
+    padding-right: rem(6);
+    overflow-y: auto;
+  }
+
+  &__message {
+    color: #3b3b3b;
+    font-size: rem(16);
+    line-height: 24px;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: rem(120) 1fr;
+    gap: rem(18);
+    padding: rem(14);
+    border: 1px solid #e4e4e4;
+
+    @media screen and (max-width: 560px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: rem(120);
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: rem(128);
+      object-fit: contain;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: rem(8);
+  }
+
+  &__name {
+    color: #2b2b2b;
+    font-size: rem(18);
+    font-weight: 700;
+    line-height: 24px;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  &__meta,
+  &__description {
+    color: #686868;
+    font-size: rem(14);
+    line-height: 21px;
+  }
+
+  &__price {
+    color: #3b3b3b;
+    font-size: rem(20);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 28px;
+  }
+
+  &__remove {
+    align-self: flex-start;
+    margin-top: rem(4);
+    padding: rem(8) rem(18);
+    background-color: #ff8900;
+    color: white;
+    font-family: $mainFont;
+    font-size: rem(12);
+    font-weight: 700;
+    line-height: 18px;
+    text-transform: uppercase;
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.55;
+    }
+  }
+
+  &__btn-close {
+    position: absolute;
+    right: rem(-54);
+    top: rem(-50);
+    width: rem(40);
+    height: rem(40);
+    cursor: pointer;
+
+    @media screen and (max-width: 1024px) {
+      right: rem(12);
+      top: rem(12);
+    }
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: rem(15);
+      width: rem(2);
+      height: rem(40);
+      content: " ";
+      background-color: #dbdbdb;
+      transition: all 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover:before,
+    &:hover:after {
+      background-color: rgb(219, 53, 61);
+    }
+  }
+}

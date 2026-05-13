@@ -2,6 +2,7 @@ import {
   cartApi,
   favoritesApi,
   getAuthToken,
+  productsApi,
   setAuthToken,
 } from "./api";
 
@@ -28,6 +29,13 @@ function makeLocalProduct(product) {
   return {
     id: Number(product.id),
     title: product.title || product.name,
+    name: product.name || product.title,
+    slug: product.slug,
+    description: product.description,
+    image_url: product.image_url,
+    brand: product.brand,
+    category: product.category,
+    stock_quantity: product.stock_quantity,
     price: Number(product.price || 0),
     qty: Number(product.qty || 1),
   };
@@ -58,6 +66,13 @@ function getLocalCartCount() {
 
 function getLocalIds(key) {
   return Object.keys(safeParse(key));
+}
+
+function removeLocalItem(key, productId) {
+  const data = safeParse(key);
+  delete data[String(productId)];
+  saveStorage(key, data);
+  return data;
 }
 
 function createState({
@@ -199,6 +214,75 @@ export async function addToWish(product) {
     if (error.status === 401 || error.status === 403) {
       setAuthToken(null);
       addLocalItem(WISH_KEY, product, false);
+      return syncHeaderCounters();
+    }
+
+    throw error;
+  }
+}
+
+function normalizeLocalWishProduct(product) {
+  return {
+    ...product,
+    id: Number(product.id),
+    name: product.name || product.title || "Товар",
+    price: Number(product.price || 0),
+    description: product.description || "",
+  };
+}
+
+async function getLocalWishProducts() {
+  const products = Object.values(safeParse(WISH_KEY));
+
+  return Promise.all(
+    products.map(async (product) => {
+      try {
+        return await productsApi.byId(product.id);
+      } catch (error) {
+        console.error("Не удалось загрузить товар из избранного", error);
+        return normalizeLocalWishProduct(product);
+      }
+    })
+  );
+}
+
+export async function getWishProducts() {
+  if (!getAuthToken()) {
+    return getLocalWishProducts();
+  }
+
+  try {
+    const favorites = await favoritesApi.get();
+    return favorites
+      .map((favorite) => favorite && favorite.product)
+      .filter(Boolean);
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
+      return getLocalWishProducts();
+    }
+
+    throw error;
+  }
+}
+
+export async function removeFromWish(productId) {
+  if (!getAuthToken()) {
+    removeLocalItem(WISH_KEY, productId);
+    return syncHeaderCounters();
+  }
+
+  try {
+    await favoritesApi.remove(productId);
+    return syncHeaderCounters();
+  } catch (error) {
+    if (error.status === 404) {
+      return syncHeaderCounters();
+    }
+
+    if (error.status === 401 || error.status === 403) {
+      setAuthToken(null);
+      removeLocalItem(WISH_KEY, productId);
       return syncHeaderCounters();
     }
 

@@ -113,6 +113,10 @@ export const productsApi = {
   bySlug(slug) {
     return request(`/products/slug/${encodeURIComponent(slug)}`);
   },
+
+  byId(productId) {
+    return request(`/products/${Number(productId)}`);
+  },
 };
 
 export const authApi = {
