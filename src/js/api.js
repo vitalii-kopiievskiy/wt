@@ -138,6 +138,14 @@ export const authApi = {
   },
 };
 
+export const usersApi = {
+  me() {
+    return request("/users/me", {
+      auth: true,
+    });
+  },
+};
+
 export const cartApi = {
   get() {
     return request("/cart/", {

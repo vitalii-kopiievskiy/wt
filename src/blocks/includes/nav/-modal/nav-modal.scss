@@ -16,8 +16,16 @@
     display: flex;
     position: relative;
     background-color: white;
-    margin: rem(306px) auto 0;
+    margin: rem(96px) auto rem(32px);
     width: rem(755px);
+
+    @media screen and (max-height: 760px) {
+      margin: rem(56px) auto rem(24px);
+    }
+
+    @media screen and (max-height: 640px) {
+      margin: rem(24px) auto rem(16px);
+    }
 
     @media screen and (max-width: 787px) {
       flex-direction: column;

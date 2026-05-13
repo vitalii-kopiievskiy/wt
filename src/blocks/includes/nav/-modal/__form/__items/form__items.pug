@@ -1,3 +1,11 @@
+.form__item.form__item--register(hidden)
+    label(for="firstNameField").form__label Имя
+    input(type="text", name="firstNameField", id="firstNameField" placeholder="Иван" autocomplete="given-name").form__input
+    i.fas.fa-check
+.form__item.form__item--register(hidden)
+    label(for="lastNameField").form__label Фамилия
+    input(type="text", name="lastNameField", id="lastNameField" placeholder="Иванов" autocomplete="family-name").form__input
+    i.fas.fa-check
 .form__item
     label(for="emailField").form__label Ваш email
     input(type="text", name="emailField", id="emailField" placeholder= "mikel_ivanov98@gmail.com" autocomplete = 'on').form__input

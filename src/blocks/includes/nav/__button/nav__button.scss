@@ -11,7 +11,7 @@
   }
 
   &__text {
-    letter-spacing: rem(-1);
+    letter-spacing: 0;
     font-size: rem(12);
   }
 
@@ -22,4 +22,44 @@
 
 .header-topline__btn {
   min-width: rem(122);
+  padding: 0 rem(18);
+}
+
+.nav-account {
+  display: flex;
+  flex-flow: row nowrap;
+  align-self: stretch;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: rem(8);
+
+  &__user {
+    display: none;
+    max-width: rem(240);
+    color: white;
+    font-size: rem(12);
+    line-height: 1.4;
+    text-align: right;
+    align-self: center;
+  }
+
+  &.is-authenticated {
+    .nav-account__user {
+      display: inline-block;
+    }
+  }
+}
+
+.header-topline__btn--logout {
+  display: none;
+  min-width: rem(92);
+  background-color: #afb9c6;
+
+  &:hover {
+    background-color: #c4ccd6;
+  }
+}
+
+.nav-account.is-authenticated .header-topline__btn--logout {
+  display: flex;
 }

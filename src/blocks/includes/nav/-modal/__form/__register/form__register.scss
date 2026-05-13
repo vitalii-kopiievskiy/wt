@@ -1,14 +1,20 @@
 .form {
+  &__register {
+    display: flex;
+    flex-flow: row wrap;
+    gap: rem(20);
+  }
+
   &__link {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
     color: #3d3d3d;
     text-decoration: underline;
     &:hover {
       text-decoration: none;
     }
 
-    &:nth-child(2) {
-      padding-left: rem(20);
-    }
     @media screen and (max-width: 787px) {
       @include advFont(14, 12);
     }
