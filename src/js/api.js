@@ -117,6 +117,29 @@ export const productsApi = {
   byId(productId) {
     return request(`/products/${Number(productId)}`);
   },
+
+  create(payload) {
+    return request("/products/", {
+      method: "POST",
+      auth: true,
+      body: payload,
+    });
+  },
+
+  update(productId, payload) {
+    return request(`/products/${Number(productId)}`, {
+      method: "PATCH",
+      auth: true,
+      body: payload,
+    });
+  },
+
+  remove(productId) {
+    return request(`/products/${Number(productId)}`, {
+      method: "DELETE",
+      auth: true,
+    });
+  },
 };
 
 export const authApi = {
@@ -141,6 +164,25 @@ export const authApi = {
 export const usersApi = {
   me() {
     return request("/users/me", {
+      auth: true,
+    });
+  },
+
+  adminList(params = {}) {
+    return request("/users/admin/all", {
+      auth: true,
+      params: {
+        limit: 100,
+        offset: 0,
+        sort_by: "id",
+        sort_order: "asc",
+        ...params,
+      },
+    });
+  },
+
+  adminById(userId) {
+    return request(`/users/${Number(userId)}`, {
       auth: true,
     });
   },
@@ -241,6 +283,29 @@ export const ordersApi = {
       body: {
         product_id: Number(productId),
         quantity,
+      },
+    });
+  },
+
+  adminList() {
+    return request("/orders/admin/all", {
+      auth: true,
+    });
+  },
+
+  adminById(orderId) {
+    return request(`/orders/admin/${Number(orderId)}`, {
+      auth: true,
+    });
+  },
+
+  adminUpdateStatus(orderId, status) {
+    return request("/orders/admin/status", {
+      method: "PATCH",
+      auth: true,
+      body: {
+        order_id: Number(orderId),
+        status,
       },
     });
   },

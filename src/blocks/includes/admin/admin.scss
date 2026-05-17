@@ -1,0 +1,247 @@
+.admin-page {
+  #wrapper {
+    grid-template-areas:
+      "nav nav nav nav"
+      "main main main main"
+      "footer footer footer footer";
+    grid-template-rows: 50px 1fr auto;
+  }
+
+  #header {
+    display: none;
+  }
+}
+
+.admin-panel {
+  padding: rem(28) 0 rem(48);
+
+  &__head,
+  &__section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(16);
+  }
+
+  &__head {
+    margin-bottom: rem(24);
+  }
+
+  &__title {
+    color: #2f3338;
+    font-size: rem(36);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  &__subtitle {
+    margin-top: rem(8);
+    color: #707880;
+    font-size: rem(14);
+  }
+
+  &__back {
+    color: #ff8500;
+    font-size: rem(14);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  &__notice,
+  &__empty {
+    padding: rem(18);
+    color: #3b3b3b;
+    background-color: #f5f5f5;
+    border-left: 4px solid #ff8500;
+  }
+
+  &__notice.is-error {
+    border-left-color: #d33;
+  }
+
+  &__workspace[hidden] {
+    display: none;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: rem(8);
+    margin-bottom: rem(18);
+    border-bottom: 1px solid #d9dde2;
+  }
+
+  &__tab {
+    padding: rem(12) rem(18);
+    color: #3b3b3b;
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+    font-size: rem(14);
+    font-weight: 700;
+    text-transform: uppercase;
+
+    &.is-active {
+      color: #ff8500;
+      border-bottom-color: #ff8500;
+    }
+  }
+
+  &__section {
+    display: none;
+
+    &.is-active {
+      display: block;
+    }
+  }
+
+  &__section-head {
+    margin-bottom: rem(14);
+  }
+
+  &__section-title {
+    color: #2f3338;
+    font-size: rem(24);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.35fr);
+    gap: rem(18);
+
+    @media screen and (max-width: 960px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__primary-btn,
+  &__secondary-btn,
+  &__danger-btn {
+    padding: rem(10) rem(14);
+    color: white;
+    font-size: rem(12);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__primary-btn {
+    background-color: #ff8500;
+
+    &:hover {
+      background-color: #f8a547;
+    }
+  }
+
+  &__secondary-btn {
+    color: #2f3338;
+    background-color: #e6eaee;
+
+    &:hover {
+      background-color: #d6dde4;
+    }
+  }
+
+  &__danger-btn {
+    background-color: #d64040;
+
+    &:hover {
+      background-color: #bd3030;
+    }
+  }
+
+  &__details {
+    min-height: rem(240);
+    padding: rem(18);
+    background-color: #f7f8f9;
+    border: 1px solid #d9dde2;
+  }
+}
+
+.admin-form {
+  padding: rem(18);
+  background-color: #f7f8f9;
+  border: 1px solid #d9dde2;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem(12);
+
+    @media screen and (max-width: 560px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: rem(6);
+    margin-bottom: rem(12);
+    color: #4c535a;
+    font-size: rem(12);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: rem(10);
+    color: #2f3338;
+    background-color: white;
+    border: 1px solid #cfd5db;
+    font-size: rem(14);
+    text-transform: none;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  &__checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(8);
+    margin-bottom: rem(14);
+    color: #2f3338;
+    font-size: rem(14);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(10);
+  }
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #d9dde2;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: rem(720);
+  border-collapse: collapse;
+  background-color: white;
+
+  th,
+  td {
+    padding: rem(10);
+    border-bottom: 1px solid #edf0f2;
+    color: #2f3338;
+    font-size: rem(13);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    color: #68727d;
+    background-color: #f2f4f6;
+    font-size: rem(11);
+    text-transform: uppercase;
+  }
+
+  &__actions {
+    display: flex;
+    gap: rem(8);
+  }
+}

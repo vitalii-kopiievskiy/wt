@@ -1,7 +1,6 @@
 import { getApiErrorMessage, productsApi } from "../../../../../js/api";
 import {
   addToCart,
-  addToCompare,
   addToWish,
   getShopState,
   SHOP_STATE_CHANGED,
@@ -65,7 +64,6 @@ function renderProductPage(product, state) {
     : "";
 
   const cartText = state.cartIds.has(productId) ? "В корзине" : "В корзину";
-  const compareText = state.compareIds.has(productId) ? "В сравнении" : "Сравнить";
   const wishText = state.wishIds.has(productId) ? "В избранном" : "В избранное";
 
   document.title = product.name;
@@ -105,15 +103,6 @@ function renderProductPage(product, state) {
             </button>
 
             <button
-              class="btn product-detail__compare"
-              data-id="${product.id}"
-              data-title="${escapeHtml(product.name)}"
-              data-price="${product.price}"
-            >
-              ${compareText}
-            </button>
-
-            <button
               class="btn product-detail__wish"
               data-id="${product.id}"
               data-title="${escapeHtml(product.name)}"
@@ -144,15 +133,10 @@ function updateRenderedButtons(state) {
 
   const id = String(detail.dataset.productId);
   const buyButton = detail.querySelector(".product-detail__buy");
-  const compareButton = detail.querySelector(".product-detail__compare");
   const wishButton = detail.querySelector(".product-detail__wish");
 
   if (buyButton) {
     buyButton.textContent = state.cartIds.has(id) ? "В корзине" : "В корзину";
-  }
-
-  if (compareButton) {
-    compareButton.textContent = state.compareIds.has(id) ? "В сравнении" : "Сравнить";
   }
 
   if (wishButton) {
@@ -189,7 +173,6 @@ async function loadProduct() {
 
 document.addEventListener("click", async function(event) {
   const buyButton = event.target.closest(".product-detail__buy");
-  const compareButton = event.target.closest(".product-detail__compare");
   const wishButton = event.target.closest(".product-detail__wish");
 
   try {
@@ -198,11 +181,6 @@ document.addEventListener("click", async function(event) {
       const state = await addToCart(makeSnapshotFromDataset(buyButton));
       updateRenderedButtons(state);
       buyButton.disabled = false;
-    }
-
-    if (compareButton) {
-      const state = await addToCompare(makeSnapshotFromDataset(compareButton));
-      updateRenderedButtons(state);
     }
 
     if (wishButton) {

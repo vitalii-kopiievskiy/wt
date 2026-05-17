@@ -1,0 +1,14 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Админка | Auto Shop';
+  - var description = 'Админ-панель Auto Shop';
+  - var pageClass = 'admin-page';
+
+block content
+  main#main
+    .container
+      include ../includes/admin/admin
+
+block script
+  script(src="https://kit.fontawesome.com/13fd77a47d.js" crossorigin="anonymous")

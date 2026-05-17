@@ -10,6 +10,8 @@ nav#nav
                     else
                         li.nav__item
                             a(href="#").nav__link.prevent-link= txt
+                li.nav__item.nav__item--admin#adminNavItem
+                    a(href="admin.html").nav__link Админка
             include __button/nav__button.pug
         include -modal/nav-modal
         include -account/account-modal

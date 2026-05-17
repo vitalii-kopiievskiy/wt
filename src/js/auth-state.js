@@ -52,8 +52,10 @@ function renderAuthState() {
   const enterButton = document.getElementById("enterNavBtn");
   const logoutButton = document.getElementById("logoutNavBtn");
   const userName = document.getElementById("currentUserName");
+  const adminNavItem = document.getElementById("adminNavItem");
   const enterText = enterButton && enterButton.querySelector(".btn__text");
   const isLoggedIn = Boolean(getAuthToken());
+  const isAdmin = Boolean(isLoggedIn && currentUser && currentUser.role === "admin");
 
   if (account) {
     account.classList.toggle("is-authenticated", isLoggedIn);
@@ -78,6 +80,10 @@ function renderAuthState() {
     userName.textContent = isLoggedIn && currentUser
       ? `Вы вошли: ${getUserDisplayName()}`
       : "";
+  }
+
+  if (adminNavItem) {
+    adminNavItem.classList.toggle("is-visible", isAdmin);
   }
 }
 

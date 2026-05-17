@@ -56,4 +56,12 @@
       margin-left: 0;
     }
   }
+
+  &__item--admin {
+    display: none;
+
+    &.is-visible {
+      display: list-item;
+    }
+  }
 }
